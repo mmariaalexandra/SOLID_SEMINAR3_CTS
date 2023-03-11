@@ -1,13 +1,10 @@
 package ro.ase.acs.main;
 
 import ro.ase.acs.classes.Operations;
+import ro.ase.acs.exception.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Main {
 
@@ -22,7 +19,7 @@ public class Main {
             operations.readData(connection);
 
             connection.close();
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

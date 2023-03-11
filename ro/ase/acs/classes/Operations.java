@@ -3,27 +3,29 @@ package ro.ase.acs.classes;
 import java.sql.*;
 
 public class Operations extends SQLException{
-    public static void createTable(Connection connection) throws SQLException {
-        String sqlDrop = "DROP TABLE IF EXISTS employees";
-        String sqlCreate = "CREATE TABLE employees(id INTEGER PRIMARY KEY,"
-                + "name TEXT, address TEXT, salary REAL)";
+    private static final String SQL_DROP ="DROP TABLE IF EXISTS employees";
+    private static final String SQL_CREATE="CREATE TABLE employees(id INTEGER PRIMARY KEY,"
+            + "name TEXT, address TEXT, salary REAL)";
+    private static final String SQL_INSERT="INSERT INTO employees VALUES(1, 'Popescu Ion', 'Bucharest', 4000)";
+    private static final String SQL_INSERT_PARAMS="INSERT INTO employees VALUES (?,?,?,?)";
+    private static final String SQL_SELECT="SELECT * FROM employees";
 
+    public static void createTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.executeUpdate(sqlDrop);
-        statement.executeUpdate(sqlCreate);
+        statement.executeUpdate(SQL_DROP);
+        statement.executeUpdate(SQL_CREATE);
         statement.close();
         connection.commit();
     }
 
     public static void insertData(Connection connection) throws SQLException {
-        String sqlInsert = "INSERT INTO employees VALUES(1, 'Popescu Ion', 'Bucharest', 4000)";
+
         Statement statement = connection.createStatement();
-        statement.executeUpdate(sqlInsert);
+        statement.executeUpdate(SQL_INSERT);
         statement.close();
 
-        String sqlInsertWithParams = "INSERT INTO employees VALUES (?,?,?,?)";
         PreparedStatement preparedStatement =
-                connection.prepareStatement(sqlInsertWithParams);
+                connection.prepareStatement(SQL_INSERT_PARAMS);
         preparedStatement.setInt(1, 2);
         preparedStatement.setString(2, "Ionescu Vasile");
         preparedStatement.setString(3, "Brasov");
@@ -35,9 +37,9 @@ public class Operations extends SQLException{
     }
 
     public static void readData(Connection connection) throws SQLException {
-        String sqlSelect = "SELECT * FROM employees";
+
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(sqlSelect);
+        ResultSet rs = statement.executeQuery(SQL_SELECT);
         while(rs.next()) {
             int id = rs.getInt("id");
             System.out.println("id: " + id);

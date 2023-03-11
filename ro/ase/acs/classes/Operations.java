@@ -2,7 +2,7 @@ package ro.ase.acs.classes;
 
 import java.sql.*;
 
-public class Operations {
+public class Operations extends SQLException{
     public static void createTable(Connection connection) throws SQLException {
         String sqlDrop = "DROP TABLE IF EXISTS employees";
         String sqlCreate = "CREATE TABLE employees(id INTEGER PRIMARY KEY,"

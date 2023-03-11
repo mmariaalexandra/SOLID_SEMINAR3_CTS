@@ -9,6 +9,9 @@ public class Operations extends SQLException{
     private static final String SQL_INSERT="INSERT INTO employees VALUES(1, 'Popescu Ion', 'Bucharest', 4000)";
     private static final String SQL_INSERT_PARAMS="INSERT INTO employees VALUES (?,?,?,?)";
     private static final String SQL_SELECT="SELECT * FROM employees";
+    private static final String NAME="Ionescu Vasile";
+    private static final String CITY="Brasov";
+    private static final Integer SALARY=4500;
 
     public static void createTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
@@ -27,9 +30,9 @@ public class Operations extends SQLException{
         PreparedStatement preparedStatement =
                 connection.prepareStatement(SQL_INSERT_PARAMS);
         preparedStatement.setInt(1, 2);
-        preparedStatement.setString(2, "Ionescu Vasile");
-        preparedStatement.setString(3, "Brasov");
-        preparedStatement.setDouble(4, 4500);
+        preparedStatement.setString(2, NAME);
+        preparedStatement.setString(3, CITY);
+        preparedStatement.setDouble(4, SALARY);
         preparedStatement.executeUpdate();
         preparedStatement.close();
 
